@@ -42,15 +42,31 @@ namespace BrowserApp.Views
         {
             try
             {
-                TabViewItem newItem = new TabViewItem();
-
-                newItem.Header = "New Tab";
-                newItem.IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Document };
+                TabViewItem newItem = new TabViewItem
+                {
+                    Header = "New Tab",
+                    IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Document }
+                };
 
                 var newWebView = new WebView2();
-
                 await newWebView.EnsureCoreWebView2Async();
                 newWebView.Source = new Uri("https://www.google.com/");
+
+                ViewModel.CurrentWebView = newWebView;
+
+                ViewModel.CurrentWebView = newWebView;
+                ViewModel.CurrentTab = newItem;
+
+                // Hook into the NavigationCompleted event to track history
+                newWebView.NavigationCompleted += (sender, args) =>
+                {
+                    if (args.IsSuccess)
+                    {
+                        Uri currentUri = ((WebView2)sender).Source;
+                        ViewModel.HistoryTabCollection.Add(currentUri.ToString());
+                        ViewModel.UpdateNavigationStates();
+                    }
+                };
 
                 newItem.Content = newWebView;
                 MyTabView.TabItems.Add(newItem);
@@ -64,6 +80,7 @@ namespace BrowserApp.Views
                 throw;
             }
         }
+
 
         private void NavigationView_SelectionChanged(Windows.UI.Xaml.Controls.NavigationView sender, Windows.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
