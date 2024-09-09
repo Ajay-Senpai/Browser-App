@@ -81,23 +81,22 @@
                             </Grid.ColumnDefinitions>
                             <AppBarButton x:Name="BackButton"
                                           HorizontalAlignment="Left"
-                                          Margin="5"
                                           Icon="Back" 
+                                          Command="{x:Bind ViewModel.BackCommand}"
                                           ToolTipService.ToolTip="Back"/>
                             <AppBarButton x:Name="ForwardButton"
-                                          Margin="5"
                                           Grid.Column="1"
                                           HorizontalAlignment="Left"
                                           Icon="Forward"
+                                          Command="{x:Bind ViewModel.ForwardCommand}"
                                           ToolTipService.ToolTip="Forward"/>
                             <AppBarButton x:Name="RefreshButton"
-                                          Margin="5"
                                           Grid.Column="2"
                                           HorizontalAlignment="Left"
                                           Icon="Refresh" 
+                                          Command="{x:Bind ViewModel.RefreshCommand}"
                                           ToolTipService.ToolTip="Refresh"/>
                             <AppBarButton x:Name="BookmarkButton"
-                                          Margin="5"
                                           Grid.Column="3"
                                           HorizontalAlignment="Left"
                                           Icon="OutlineStar"
@@ -107,7 +106,6 @@
                                           Icon="Bookmarks"
                                           ToolTipService.ToolTip="Forward Button"/>-->
                             <AppBarButton x:Name="FlyoutButton"
-                                          Margin="5"
                                           Grid.Column="5"
                                           HorizontalAlignment="Right"
                                           Icon="AllApps"
@@ -145,8 +143,14 @@
                     </Grid>
 
                     <!-- History Grid -->
-                    <Grid x:Name="HistoryGrid" Visibility="Collapsed" Background="White">
-                        <TextBlock Text="This is the Downloads Page!" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Grid x:Name="HistoryGrid" Visibility="Collapsed">
+                        <TextBlock Text="Search History" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" FontSize="24"/>
+                        <ListView x:Name="HistoryListView"
+                                  Margin="20,80,20,20"
+                                  ItemsSource="{x:Bind ViewModel.HistoryTabCollection}"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                        </ListView>
                     </Grid>
 
                     <!-- Settings Grid -->
