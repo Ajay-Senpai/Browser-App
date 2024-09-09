@@ -1,0 +1,163 @@
+﻿<Page
+    x:Class="BrowserApp.Views.MainPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BrowserApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nav="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:wv2="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+
+    <Grid>
+        <nav:NavigationView x:Name="Navigation" 
+                        IsSettingsVisible="False"
+                        IsBackButtonVisible="Collapsed"
+                        PaneDisplayMode="Left"
+                        OpenPaneLength="200"
+                        SelectionChanged="NavigationView_SelectionChanged">
+            <nav:NavigationView.MenuItems>
+                <nav:NavigationViewItem Icon="Home"
+                                    Content="Home"
+                                    Tag="HomeGrid" />
+                <nav:NavigationViewItem Icon="Globe"
+                                    Content="Browser"
+                                    Tag="BrowserGrid" />
+                <nav:NavigationViewItem Icon="OutlineStar"
+                                    Content="Bookmarks"
+                                    Tag="BookmarksGrid" />
+                <nav:NavigationViewItem Icon="Clock"
+                                    Content="History"
+                                    Tag="HistoryGrid" />
+                <nav:NavigationViewItem Icon="Setting"
+                                    Content="Settings"
+                                    Tag="SettingsGrid" />
+            </nav:NavigationView.MenuItems>
+            <Frame>
+                <Grid>
+                    <!-- Home Grid -->
+                    <Grid x:Name="HomeGrid" Visibility="Visible">
+                        <nav:NavigationView x:Name="BrowserNav"
+                                                IsSettingsVisible="False"
+                                                IsBackButtonVisible="Collapsed"
+                                                PaneDisplayMode="Top"
+                                                OpenPaneLength="200">
+                            <nav:NavigationView.MenuItems>
+                                <nav:NavigationViewItem Icon="AllApps"
+                                    Content="All Downloads"
+                                    Tag="HomeGrid" />
+                                <nav:NavigationViewItem Icon="Pictures"
+                                    Content="Images"
+                                    Tag="HomeGrid" />
+                                <nav:NavigationViewItem Icon="Video"
+                                    Content="Videos"
+                                    Tag="BrowserGrid" />
+                                <nav:NavigationViewItem Icon="Audio"
+                                    Content="Audios"
+                                    Tag="DownloadsGrid" />
+                                <nav:NavigationViewItem Icon="Document"
+                                    Content="Documents"
+                                    Tag="BookmarksGrid" />
+                            </nav:NavigationView.MenuItems>
+                        </nav:NavigationView>
+                    </Grid>
+
+                    <!--Browser Grid-->
+                    <Grid x:Name="BrowserGrid" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <AppBarButton x:Name="BackButton"
+                                          HorizontalAlignment="Left"
+                                          Margin="5"
+                                          Icon="Back" 
+                                          ToolTipService.ToolTip="Back"/>
+                            <AppBarButton x:Name="ForwardButton"
+                                          Margin="5"
+                                          Grid.Column="1"
+                                          HorizontalAlignment="Left"
+                                          Icon="Forward"
+                                          ToolTipService.ToolTip="Forward"/>
+                            <AppBarButton x:Name="RefreshButton"
+                                          Margin="5"
+                                          Grid.Column="2"
+                                          HorizontalAlignment="Left"
+                                          Icon="Refresh" 
+                                          ToolTipService.ToolTip="Refresh"/>
+                            <AppBarButton x:Name="BookmarkButton"
+                                          Margin="5"
+                                          Grid.Column="3"
+                                          HorizontalAlignment="Left"
+                                          Icon="OutlineStar"
+                                          ToolTipService.ToolTip="Bookmark"/>
+                            <!--<AppBarButton x:Name="ForwardButton"
+                                          Margin="5"
+                                          Icon="Bookmarks"
+                                          ToolTipService.ToolTip="Forward Button"/>-->
+                            <AppBarButton x:Name="FlyoutButton"
+                                          Margin="5"
+                                          Grid.Column="5"
+                                          HorizontalAlignment="Right"
+                                          Icon="AllApps"
+                                          ToolTipService.ToolTip="Menu">
+                                <AppBarButton.Flyout>
+                                    <Flyout>
+                                        <StackPanel Orientation="Vertical">
+                                        <AppBarButton Label="New Tab"
+                                                      Icon="Document" />
+                                        <AppBarButton Label="New Window" 
+                                                      Icon="NewWindow" />
+                                        <AppBarButton Label="New Private Window"
+                                                      Icon="NewWindow" />
+                                        </StackPanel>
+                                    </Flyout>
+                                </AppBarButton.Flyout>
+                            </AppBarButton>
+                        </Grid>
+
+                        <wv2:TabView x:Name="MyTabView"
+                                     Grid.Row="1"
+                                     VerticalAlignment="Stretch"
+                                     HorizontalAlignment="Stretch"
+                                     AddTabButtonClick="TabView_AddButtonClick"
+                                     TabCloseRequested="TabView_TabCloseRequested"
+                                     Loaded="TabView_Loaded"/>
+                    </Grid>
+
+                    <!-- Bookmarks Grid -->
+                    <Grid x:Name="BookmarksGrid" Visibility="Collapsed">
+                        <!--<wv2:TabView x:Name="MyTabView"
+                                     AddTabButtonClick="TabView_AddButtonClick"
+                                     TabCloseRequested="TabView_TabCloseRequested"
+                                     Loaded="TabView_Loaded"/>-->
+                    </Grid>
+
+                    <!-- History Grid -->
+                    <Grid x:Name="HistoryGrid" Visibility="Collapsed" Background="White">
+                        <TextBlock Text="This is the Downloads Page!" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <!-- Settings Grid -->
+                    <Grid x:Name="SettingsGrid" Visibility="Collapsed">
+                        <TextBlock Text="This is the Settings Page!" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </Grid>
+            </Frame>
+        </nav:NavigationView>
+
+
+    </Grid>
+
+</Page>
