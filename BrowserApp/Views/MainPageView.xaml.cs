@@ -53,8 +53,6 @@ namespace BrowserApp.Views
                 newWebView.Source = new Uri("https://www.google.com/");
 
                 ViewModel.CurrentWebView = newWebView;
-
-                ViewModel.CurrentWebView = newWebView;
                 ViewModel.CurrentTab = newItem;
 
                 // Hook into the NavigationCompleted event to track history
@@ -80,7 +78,6 @@ namespace BrowserApp.Views
                 throw;
             }
         }
-
 
         private void NavigationView_SelectionChanged(Windows.UI.Xaml.Controls.NavigationView sender, Windows.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {

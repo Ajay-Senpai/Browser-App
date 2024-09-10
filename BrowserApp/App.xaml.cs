@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BrowserApp.Interfaces;
+using BrowserApp.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -48,6 +51,16 @@ namespace BrowserApp
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
+
+
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddSingleton<IDialogService, DialogService>();
+            // Register other services if needed
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            // Initialize the AppServices with the service provider
+            AppServices.Initialize(serviceProvider);
 
             if (e.PrelaunchActivated == false)
             {
