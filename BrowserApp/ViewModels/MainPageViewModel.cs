@@ -1,4 +1,6 @@
 ﻿using BrowserApp.Helper;
+using BrowserApp.Interfaces;
+using BrowserApp.Services;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.ObjectModel;
@@ -12,6 +14,7 @@ namespace BrowserApp.ViewModels
 
         public MainPageViewModel()
         {
+            _dialogService = AppServices.GetService<IDialogService>();
         }
 
 
@@ -58,6 +61,8 @@ namespace BrowserApp.ViewModels
         }
         private ObservableCollection<string> _historyTabCollection = new ObservableCollection<string>();
 
+        private IDialogService _dialogService;
+
         public ObservableCollection<string> HistoryTabCollection
         {
             get { return _historyTabCollection; }
@@ -94,6 +99,7 @@ namespace BrowserApp.ViewModels
         public IAsyncCommand BackCommand => new AsyncCommand(BackCommandExecuteAsync);
         public IAsyncCommand ForwardCommand => new AsyncCommand(ForwardCommandExecuteAsync);
         public IAsyncCommand RefreshCommand => new AsyncCommand(RefreshCommandExecuteAsync);
+        public IAsyncCommand DownloadCommand => new AsyncCommand(DownloadCommandExecuteAsync);
         public IAsyncCommand UpdateTabIconCommand => new AsyncCommand(UpdateTabIconCommandExecuteAsync);
 
         #endregion 
@@ -114,6 +120,10 @@ namespace BrowserApp.ViewModels
         private async Task RefreshCommandExecuteAsync()
         {
             _currentWebView.Reload();
+        }
+        private async Task DownloadCommandExecuteAsync()
+        {
+            await _dialogService.OpenDownloadPopupAsync();
         }
         public void UpdateNavigationStates()
         {

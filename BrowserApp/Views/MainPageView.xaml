@@ -78,6 +78,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <AppBarButton x:Name="BackButton"
                                           HorizontalAlignment="Left"
@@ -101,12 +102,14 @@
                                           HorizontalAlignment="Left"
                                           Icon="OutlineStar"
                                           ToolTipService.ToolTip="Bookmark"/>
-                            <!--<AppBarButton x:Name="ForwardButton"
+                            <AppBarButton x:Name="DownloadButton"
                                           Margin="5"
-                                          Icon="Bookmarks"
-                                          ToolTipService.ToolTip="Forward Button"/>-->
-                            <AppBarButton x:Name="FlyoutButton"
                                           Grid.Column="5"
+                                          Icon="Download"
+                                          Command="{x:Bind ViewModel.DownloadCommand}"
+                                          ToolTipService.ToolTip="Download"/>
+                            <AppBarButton x:Name="FlyoutButton"
+                                          Grid.Column="6"
                                           HorizontalAlignment="Right"
                                           Icon="AllApps"
                                           ToolTipService.ToolTip="Menu">
