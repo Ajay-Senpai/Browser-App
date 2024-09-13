@@ -138,22 +138,28 @@
                     </Grid>
 
                     <!-- Bookmarks Grid -->
-                    <Grid x:Name="BookmarksGrid" Visibility="Collapsed">
-                        <!--<wv2:TabView x:Name="MyTabView"
-                                     AddTabButtonClick="TabView_AddButtonClick"
-                                     TabCloseRequested="TabView_TabCloseRequested"
-                                     Loaded="TabView_Loaded"/>-->
-                    </Grid>
+                    <Grid x:Name="BookmarksGrid" Visibility="Collapsed" />
 
                     <!-- History Grid -->
                     <Grid x:Name="HistoryGrid" Visibility="Collapsed">
                         <TextBlock Text="Search History" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" FontSize="24"/>
-                        <ListView x:Name="HistoryListView"
-                                  Margin="20,80,20,20"
-                                  ItemsSource="{x:Bind ViewModel.HistoryTabCollection}"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch">
-                        </ListView>
+                        <ScrollViewer>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ListView x:Name="HistoryListView"
+                                      Margin="20,80,20,20"
+                                      Grid.Column="1"
+                                      ItemsSource="{x:Bind ViewModel.HistoryTabCollection}"
+                                      ItemTemplate="{StaticResource HistoryItemTemplate}"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch">
+                            </ListView>
+                            </Grid>
+                        </ScrollViewer>
                     </Grid>
 
                     <!-- Settings Grid -->

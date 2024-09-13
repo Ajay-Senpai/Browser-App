@@ -1,5 +1,6 @@
 ﻿using BrowserApp.Helper;
 using BrowserApp.Interfaces;
+using BrowserApp.PartialClasses;
 using BrowserApp.Services;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -34,7 +35,6 @@ namespace BrowserApp.ViewModels
                 _currentWebView = value;
                 OnPropertyChanged(nameof(CurrentWebView));
 
-                // Update button states whenever the current WebView changes
                 CanGoBack = _currentWebView?.CanGoBack ?? false;
                 CanGoForward = _currentWebView?.CanGoForward ?? false;
             }
@@ -59,11 +59,11 @@ namespace BrowserApp.ViewModels
                 OnPropertyChanged(nameof(CanGoForward));
             }
         }
-        private ObservableCollection<string> _historyTabCollection = new ObservableCollection<string>();
+        private ObservableCollection<History> _historyTabCollection = new ObservableCollection<History>();
 
         private IDialogService _dialogService;
 
-        public ObservableCollection<string> HistoryTabCollection
+        public ObservableCollection<History> HistoryTabCollection
         {
             get { return _historyTabCollection; }
             set
@@ -131,9 +131,29 @@ namespace BrowserApp.ViewModels
             CanGoForward = _currentWebView?.CanGoForward ?? false;
 
             UpdateTabIconCommandExecuteAsync();
-
+            UpdateHistory();
             ((AsyncCommand)BackCommand).RaiseCanExecuteChanged();
             ((AsyncCommand)ForwardCommand).RaiseCanExecuteChanged();
+        }
+        private async void UpdateHistory()
+        {
+            if (CurrentWebView != null)
+            {
+                var history = new History();
+                if (CurrentWebView.CoreWebView2.FaviconUri == string.Empty)
+                {
+                    history.Icon = "https://www.google.com/favicon.ico";
+                }
+                else
+                {
+
+                    history.Icon = CurrentWebView.CoreWebView2.FaviconUri;
+                }
+                history.Title = CurrentWebView.CoreWebView2.DocumentTitle;
+                history.Host = CurrentWebView.Source.Host;
+                history.WebLink = CurrentWebView.CoreWebView2.Source;
+                HistoryTabCollection.Add(history);
+            }
         }
         private async void UpdateTabIconCommandExecuteAsync()
         {

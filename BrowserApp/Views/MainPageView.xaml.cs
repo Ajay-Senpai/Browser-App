@@ -60,8 +60,8 @@ namespace BrowserApp.Views
                 {
                     if (args.IsSuccess)
                     {
-                        Uri currentUri = ((WebView2)sender).Source;
-                        ViewModel.HistoryTabCollection.Add(currentUri.ToString());
+                        //Uri currentUri = ((WebView2)sender).Source;
+                        //ViewModel.HistoryTabCollection.Add(currentUri.ToString());
                         ViewModel.UpdateNavigationStates();
                     }
                 };
