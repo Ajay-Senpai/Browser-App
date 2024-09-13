@@ -21,7 +21,7 @@
                        FontStyle="Italic"
                        TextWrapping="Wrap"
                        MaxWidth="300"
-                       Foreground="Gray"
+                       Foreground="Black"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
         </StackPanel>
