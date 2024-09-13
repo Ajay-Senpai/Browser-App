@@ -3,5 +3,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
+    <DataTemplate x:Key="HistoryItemTemplate">
+        <StackPanel Orientation="Vertical" Margin="0,10,0,10" Background="White" >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image Source="{Binding Icon}" 
+                       Width="24" 
+                       Height="24" 
+                       Margin="0,2,10,0"/>
 
+                <TextBlock Text="{Binding Title}" 
+                           TextWrapping="NoWrap"
+                           MaxWidth="250"
+                           VerticalAlignment="Center"
+                           Foreground="Black"/>
+            </StackPanel>
+            <TextBlock Text="{Binding Host}" 
+                       FontStyle="Italic"
+                       TextWrapping="Wrap"
+                       MaxWidth="300"
+                       Foreground="Gray"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>
